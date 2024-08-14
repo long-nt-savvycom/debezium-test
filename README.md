@@ -20,6 +20,7 @@
     - Or Run: `sh create-mysql-data.sh` and `sh create-postgres-data.sh`
 
 5. Step 3: Config source connectors
+    - (Optional) if you do the test, you can run file create-connector.sh and skip step 3 and 4
     - Copy from `mysql-source-connector.example.json` or `pg-source-connector.example.json` (if your source db is mysql or postgres) to `source_1_config_file_name.json`
 
     - Modify source_1_config_file_name.json file with matching info of your database (name, username, password...)
