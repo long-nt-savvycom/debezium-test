@@ -1,0 +1,12 @@
+sources:
+  - name: public  # Name of the schema
+    tables:
+      - name: dw_campaigns  # Name of the table
+      - name: dw_deliveries
+      - name: dw_delivery_items
+      - name: dw_revenues
+      - name: dw_revenue_sources
+      - name: dw_campaign_metrics
+      - name: dw_sales
+      - name: dw_sales_items
+      - name: dw_products

@@ -1,4 +1,4 @@
-## 
+## Data Analysis
 ### Step by step
 
 1. Step 1: Setup Database
@@ -45,3 +45,15 @@
 
 7. Step 5: Checking with kafdrop
     - Open: `http://localhost:9000` and check topic names change
+
+### Data transform
+1. Create virtual env
+    - python -m venv dbt-env
+    - source dbt-env/bin/activate
+
+2. Install
+    - pip install -r requirements.txt
+
+3. Update package file requirements.txt
+    - pip freeze | grep -E 'dbt-core|dbt-postgres' >> requirements.txt
+
