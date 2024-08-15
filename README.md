@@ -57,3 +57,7 @@
 3. Update package file requirements.txt
     - pip freeze | grep -E 'dbt-core|dbt-postgres' >> requirements.txt
 
+
+### Airflow 
+1. Install
+    `https://airflow.apache.org/docs/apache-airflow/2.9.3/start.html`

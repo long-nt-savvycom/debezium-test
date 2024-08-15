@@ -110,5 +110,11 @@ services:
       - kafka2
       - zookeeper
       - postgres  
+
+  metabase:
+    image: metabase/metabase
+    ports:
+      - 3000:3000
+
 volumes:
   whdata:

@@ -38,22 +38,22 @@ campaign_performance AS (
         {{ source('public', 'dw_campaign_metrics') }} m ON c.campaign_id = m.campaign_id
     GROUP BY
         c.campaign_name
-),
-
-top_products AS (
-    SELECT
-        p.product_name,
-        SUM(si.quantity) AS total_quantity_sold
-    FROM
-        {{ source('public', 'dw_sales_items') }} si
-    JOIN
-        {{ source('public', 'dw_products') }} p ON si.product_id = p.product_id
-    GROUP BY
-        p.product_name
-    ORDER BY
-        total_quantity_sold DESC
-    LIMIT 5
 )
+
+-- top_products AS (
+--     SELECT
+--         p.product_name,
+--         SUM(si.quantity) AS total_quantity_sold
+--     FROM
+--         {{ source('public', 'dw_sales_items') }} si
+--     JOIN
+--         {{ source('public', 'dw_products') }} p ON si.product_id = p.product_id
+--     GROUP BY
+--         p.product_name
+--     ORDER BY
+--         total_quantity_sold DESC
+--     LIMIT 5
+-- )
 
 SELECT
     tr.total_revenue,
@@ -62,14 +62,14 @@ SELECT
     cp.campaign_name,
     cp.total_impressions,
     cp.total_clicks,
-    cp.ctr,
-    tp.product_name,
-    tp.total_quantity_sold
+    cp.ctr
+    -- tp.product_name,
+    -- tp.total_quantity_sold
 FROM
     total_revenue tr,
     total_deliveries td,
     total_sales ts
 JOIN
     campaign_performance cp ON TRUE
-JOIN
-    top_products tp ON TRUE
+-- JOIN
+--     top_products tp ON TRUE
