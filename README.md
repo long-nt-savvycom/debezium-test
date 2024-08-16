@@ -60,4 +60,11 @@
 
 ### Airflow 
 1. Install
-    `https://airflow.apache.org/docs/apache-airflow/2.9.3/start.html`
+    - `https://airflow.apache.org/docs/apache-airflow/2.9.3/start.html`
+
+2. Kill
+    - `pkill -f "airflow webserver" && pkill -f "airflow scheduler"`
+
+3. Start
+    - `airflow db init`
+    - `airflow webserver -D && airflow scheduler -D`

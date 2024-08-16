@@ -2,6 +2,7 @@ from airflow import DAG
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
+from airflow.sensors.filesystem import FileSensor
 from airflow.utils.dates import days_ago
 from datetime import timedelta
 import subprocess
@@ -101,9 +102,8 @@ dag = DAG(
     'test_pipeline',
     default_args=default_args,
     description='A pipeline test debezium + dpt + metabase',
-    # schedule_interval='@hourly',  # Runs every hour
-    schedule_interval='* * * * *',  # Runs every minute
-
+    schedule_interval='@hourly',  # Runs every hour
+    # schedule_interval='* * * * *',  # Runs every minute
 )
 
 # Define tasks
@@ -135,5 +135,14 @@ end = DummyOperator(
     dag=dag,
 )
 
+watch_dbt_model = FileSensor(
+    task_id="watch_dbt_model",
+    filepath=f"{dbt_path}/models",  # Path to your dbt model directory
+    poke_interval=60,  # Check every minute
+    timeout=600,  # Timeout after 10 minutes
+    mode="reschedule",  # Reschedule to not block resources
+    dag=dag,
+)
+
 # Define task dependencies
-start >> monitor >> ingest_data >> run_dbt >> end
+start >> monitor >> ingest_data >> watch_dbt_model >> run_dbt >> end
